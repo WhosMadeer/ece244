@@ -7,20 +7,18 @@
 #include "Node.h"
 
 Node::Node() {
-    numRes = 0;
-    resIDArray = new int[MAX_RESISTORS_PER_NODE];
-
-    voltage = 0
-    voltageIsSet = false;
+    numRes = 0; // number of resistors connected to the node
+    voltage = 0; // voltage of the node
+    voltageIsSet = false; // true if the user sets the voltage
 }
 
 bool Node::canAddResistor() {
     return numRes < MAX_RESISTORS_PER_NODE;
 }
 
-void Node::addResistor(int rIndex) {
-    resIDArray[numRes + 1] = rIndex;
-    numRes++;
+void Node::addResistor(int rIndex) { // index of the resistor in the array
+    resIDArray[numRes] = rIndex;
+    numRes = numRes + 1;
 }
 
 double Node::getVoltage(){
@@ -28,16 +26,16 @@ double Node::getVoltage(){
 }
 
 void Node::setVoltage(double voltage_){
-    voltage = voltage_
+    voltage = voltage_;
     voltageIsSet = true;
 }
 
 void Node::setVoltageInternally(double voltage_){
-    voltage = voltage_
+    voltage = voltage_;
 }
 
 bool Node::isVoltageSet(){
-    return isVoltageSet;
+    return voltageIsSet;
 }
 
 int Node::getNumRes() {
