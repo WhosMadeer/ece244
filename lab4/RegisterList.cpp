@@ -30,14 +30,18 @@ Register* RegisterList::get_min_items_register() {
 
 
   Register* p = head, * leastRegister = nullptr;
+  double minItemsCount = -1;
 
-  int minItemsCount = 1000; // * start with a big value so that we can start iterating 
-
-  while (p != NULL) {
-    QueueList* qp = p->get_queue_list();
-    if (minItemsCount > qp->get_items()) {
-      leastRegister = p;
-      minItemsCount = qp->get_items();
+  if (p != NULL) {
+    minItemsCount = p->get_queue_list()->get_items();
+    leastRegister = p;
+    while (p != NULL) {
+      QueueList* qp = p->get_queue_list();
+      if (minItemsCount > qp->get_items()) {
+        leastRegister = p;
+        minItemsCount = qp->get_items();
+      }
+      p = p->get_next();
     }
   }
 
@@ -78,6 +82,8 @@ void RegisterList::enqueue(Register* newRegister) {
 
   if (p == NULL) {
     head = newRegister;
+    size++;
+    return;
   }
 
   while (p->get_next() != NULL) {
@@ -130,23 +136,40 @@ Register* RegisterList::dequeue(int ID) {
   return p;
 }
 
-Register* RegisterList::calculateMinDepartTimeRegister(double expTimeElapsed) {
+Register* RegisterList::calculateMinDepartTimeRegister(double expTimeElapsed) { // * time elasped is after it is added
   // return the register with minimum time of departure of its customer
   // if all registers are free, return nullptr
 
 
-  Register* p = head, * leastRegister = nullptr;
-
-  int minDepartTime = expTimeElapsed + 10000000000; // * start with a big value so that we can start iterating 
-
+  // * because p starts with head, it means that if minDepartTime is - 1, it will still return head
+  Register* p = head, * leastRegister = p;
+  double minDepartTime = -1;
   while (p != NULL) {
-    if (expTimeElapsed < p->calculateDepartTime() && minDepartTime > p->calculateDepartTime()) {
+    double customerDepartTime = p->calculateDepartTime();
+    if (customerDepartTime != -1 && customerDepartTime <= expTimeElapsed && (minDepartTime == -1 || minDepartTime > customerDepartTime)) { // * if the depart time is not -1, it is less than the time Elasped and its smaller than min Depart Time
+      minDepartTime = customerDepartTime;
       leastRegister = p;
-      minDepartTime = p->calculateDepartTime();
     }
+    p = p->get_next();
   }
 
-  return leastRegister;
+
+  // ? old code
+  // if (p != NULL) {
+  //   minDepartTime = p->calculateDepartTime();
+  //   leastRegister = p;
+  //   while (p != NULL) {
+  //     if (expTimeElapsed < p->calculateDepartTime() && minDepartTime > p->calculateDepartTime()) {
+  //       leastRegister = p;
+  //       minDepartTime = p->calculateDepartTime();
+  //     }
+  //   }
+  // }
+
+  if (minDepartTime != -1) {
+    return leastRegister; // * stuck returning the same register
+  }
+  return nullptr;
 
 }
 

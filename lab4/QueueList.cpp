@@ -26,9 +26,10 @@ void QueueList::enqueue(Customer* customer) {
 
   if (p == NULL) {
     head = customer;
+    return;
   }
 
-  while (p->get_next() != NULL) {
+  while (p != NULL && p->get_next() != NULL) {
     p = p->get_next();
   }
 

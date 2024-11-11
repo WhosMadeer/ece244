@@ -153,7 +153,6 @@ void handleInput(stringstream& ss) { // error validation done
       handleSetV(ss);
     }
     else if (cmd == validInputs[6]) {
-      // TODO: Create solve function
     }
     else {
       cout << "Error: " << errorArray[0] << endl;

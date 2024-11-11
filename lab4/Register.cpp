@@ -48,10 +48,10 @@ void Register::set_next(Register* nextRegister) {
   next = nextRegister;
 }
 
-
 void Register::set_availableTime(double availableSince) {
   availableTime = availableSince;
 }
+
 
 double Register::calculateDepartTime() {
   // Get the departure time of the first customer in the queue
@@ -63,11 +63,15 @@ double Register::calculateDepartTime() {
 
   double time = 0;
 
-  time = p->get_arrivalTime() + overheadPerCustomer + (p->get_numOfItems() * secPerItem);
+  if (p->get_arrivalTime() > availableTime) {
+    time = p->get_arrivalTime() + overheadPerCustomer + (p->get_numOfItems() * secPerItem);
+  }
+  else {
+    time = availableTime + overheadPerCustomer + (p->get_numOfItems() * secPerItem);
+  }
 
-  p->set_departureTime(time);
+  return time;
 
-  return p->get_departureTime();
 
 }
 
@@ -75,19 +79,29 @@ void Register::departCustomer(QueueList* doneList) {
   // dequeue the head, set last dequeue time, add to doneList,
   // update availableTime of the register
 
+  double timeDeparted = calculateDepartTime();
+  set_availableTime(timeDeparted);
+
   Customer* p = queue->dequeue();
 
-  // p->set_departureTime(time departed); // TODO: FIGURE THIS OUT
+  // std::cout << timeDeparted << std::endl;
 
+  p->set_departureTime(timeDeparted);
   p->set_next(NULL);
 
-  Customer* dp = doneList->get_head();
+  // p->print();
+  // std::cout << "Departed a customer at register ID " << ID << " at " << timeDeparted << std::endl;
 
-  while (dp->get_next() != NULL) {
-    dp = dp->get_next();
-  }
 
-  dp->set_next(p);
+  doneList->enqueue(p);
+
+  // Customer* dp = doneList->get_head();
+
+  // while (dp->get_next() != NULL) {
+  //   dp = dp->get_next();
+  // }
+
+  // dp->set_next(p);
 
 }
 

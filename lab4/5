@@ -1,0 +1,9 @@
+multiple
+register open 101 1 3 0
+customer 5 5
+register open 102 15 3 60
+customer 10 60
+customer 3 5
+customer 3 5
+register close 101 30
+register close 102 30

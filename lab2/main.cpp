@@ -27,7 +27,7 @@ int main()
   std::string messageToPutOnScreen;
 
   std::chrono::steady_clock::time_point begin_time =
-      std::chrono::steady_clock::now();
+    std::chrono::steady_clock::now();
   std::chrono::steady_clock::time_point now_time;
   Screen screen = Screen();
 
@@ -43,7 +43,6 @@ int main()
 
   while (!gameEnded)
   {
-    // TODO: ECE 244 Student: Complete the game loop here only!
     // ECE 244 Student: DO NOT edit any other segments of this file!
 
 
@@ -98,14 +97,14 @@ int main()
     {
       balls_array[i].draw(screen);
     }
-    
+
     messageToPutOnScreen = "Your score is: " + std::to_string(score);
     screen.update(messageToPutOnScreen);
 
     // wait until 1/fps seconds
     while (std::chrono::duration_cast<std::chrono::milliseconds>(
-               std::chrono::steady_clock::now() - begin_time)
-               .count() < (long int)milliseconds_per_frame)
+      std::chrono::steady_clock::now() - begin_time)
+      .count() < (long int)milliseconds_per_frame)
     {
     }
 
