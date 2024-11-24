@@ -16,11 +16,11 @@ BST::~BST() {
   delete root;
 }
 void insertByIDHelper(Employee* newEmployee, Employee* n) {
-  if (n->getID() == newEmployee->getID()) {
-    // std::cout << "ID already exists" << endl;
-    return;
-  }
-  else if (newEmployee->getID() < n->getID()) {
+  // if (n->getID() == newEmployee->getID()) {
+  //   // std::cout << "ID already exists" << endl;
+  //   return;
+  // }
+  if (newEmployee->getID() < n->getID()) {
     // std::cout << "checking left" << endl;
     if (n->getLeft() == NULL) {
       // std::cout << "setting left" << endl;
@@ -140,7 +140,7 @@ void BST::insert(Employee* newEmployee) {
 void printInOrderHelper(Employee* n) {
   if (n != NULL) {
     printInOrderHelper(n->getLeft());
-    std::cout << n->getID() << " " << n->getName() << " " << n->getAge() << " " << n->getSalary() << "";
+    n->print();
     printInOrderHelper(n->getRight());
   }
 }
@@ -194,15 +194,26 @@ Employee* searchIDHelper(int ID, Employee* n) {
   if (n == NULL) {
     return NULL;
   }
-  else if (n->getID() == ID) {
+
+  if (n->getID() == ID) {
     return n;
   }
-  else if (n->getID() > ID) {
+
+  if (ID < n->getID()) {
     return searchIDHelper(ID, n->getLeft());
   }
   else {
     return searchIDHelper(ID, n->getRight());
   }
+  // else if (n->getID() == ID) {
+  //   return n;
+  // }
+  // else if (n->getID() > ID) {
+  //   return searchIDHelper(ID, n->getLeft());
+  // }
+  // else {
+  //   return searchIDHelper(ID, n->getRight());
+  // }
 }
 
 Employee* BST::searchID(int ID) {
@@ -244,16 +255,27 @@ void searchAgeHelper(double lowAge, double highAge, Employee* n) {
   if (n == NULL) {
     return;
   }
-  searchAgeHelper(lowAge, highAge, n->getLeft());
+
+  if (n->getAge() >= lowAge) {
+    searchAgeHelper(lowAge, highAge, n->getLeft());
+  }
+
   if (n->getAge() >= lowAge && n->getAge() <= highAge) {
     n->print();
   }
 
-
-  searchAgeHelper(lowAge, highAge, n->getRight());
-  if (n->getAge() >= lowAge && n->getAge() <= highAge) {
-    n->print();
+  if (n->getAge() <= highAge) {
+    searchAgeHelper(lowAge, highAge, n->getRight());
   }
+  // if (n == NULL) {
+  //   return;
+  // }
+  // searchAgeHelper(lowAge, highAge, n->getLeft());
+  // searchAgeHelper(lowAge, highAge, n->getRight());
+
+  // if (n->getAge() >= lowAge && n->getAge() <= highAge) {
+  //   n->print();
+  // }
 
 
   // if (n->getAge() >= lowAge) {
@@ -284,16 +306,29 @@ void BST::searchAgeRange(double lowAge, double highAge) {
 }
 
 
-Employee* searchNameHelper(string name, Employee* n, string prefix) {
+void searchNameHelper(Employee* n, string prefix) {
   if (n == NULL) {
-    return NULL;
+    return;
   }
-  else if (n->getName().compare(prefix) < 0) {
+  // cout << n->getName().substr(0, prefix.length()) << endl;
+  if (n->getName().substr(0, prefix.length()) == prefix) {
+    // cout << "substring matches" << endl;
+
+    n->print();
 
   }
-  else if (n->getName().compare(prefix) > 0) {
 
-  }
+  searchNameHelper(n->getLeft(), prefix);
+  searchNameHelper(n->getRight(), prefix);
+  // else if (n->getName().compare(prefix) > 0) {
+
+  // }
+  // else if (n->getName().compare(prefix) < 0) {
+
+  // }
+  // else if (n->getName().compare(prefix) > 0) {
+
+  // }
   // else if (n->getName() == name) {
   //   return n;
   // }
@@ -311,9 +346,11 @@ void BST::autocomplete(string prefix) {
   // alphabetical order
   // Doesn't print anything if nothing is found
 
-  if (root != NULL) {
+  if (root == NULL) {
     return;
   }
+
+  searchNameHelper(root, prefix);
 
 
 }

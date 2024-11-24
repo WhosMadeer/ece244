@@ -55,6 +55,10 @@ int main() {
   delete IDTree;
   delete ageTree;
 
+  nameTree = NULL;
+  IDTree = NULL;
+  ageTree = NULL;
+
   return 0;
 }
 
@@ -76,9 +80,11 @@ void addEmployee(stringstream& lineStream) {
 
   // Add the employee to the available trees and print "Error: ID already
   // exists" if ID already exists
+  Employee* n = IDTree->searchID(ID);
 
-  if (nameTree->searchID(ID) != NULL) {
+  if (n != NULL) {
     cout << "Error: ID already exists" << endl;
+    return;
   }
   else {
     // n = new Employee(firstName, lastName, ID, age, salary);
@@ -87,6 +93,7 @@ void addEmployee(stringstream& lineStream) {
     nameTree->insert(new Employee(firstName, lastName, ID, age, salary));
     ageTree->insert(new Employee(firstName, lastName, ID, age, salary));
     IDTree->insert(new Employee(firstName, lastName, ID, age, salary));
+    return;
   }
 
 }
@@ -150,6 +157,19 @@ void autocompleteEmployee(stringstream& ss) {
   // read whatever is entered by the user
   // and print all employees that have names that start the same way
   // you should ignore spaces in names
+
+  string prefix;
+
+  if (!getString(ss, prefix)) {
+    cout << "Error: too few arguments." << endl;
+    return;
+  }
+  if (foundMoreArgs(ss)) {
+    cout << "Error: too many arguments" << endl;
+    return;
+  }
+
+  nameTree->autocomplete(prefix);
 }
 
 bool getString(stringstream& lineStream, string& s) {
