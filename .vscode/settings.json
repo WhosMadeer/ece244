@@ -64,6 +64,8 @@
     "vector": "cpp",
     "iosfwd": "cpp",
     "ostream": "cpp",
-    "sstream": "cpp"
+    "sstream": "cpp",
+    "random": "cpp",
+    "new": "cpp"
   }
 }

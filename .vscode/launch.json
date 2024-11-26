@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/u/a/khanda71/ece244-labs/lab5",
-      "program": "/u/a/khanda71/ece244-labs/lab5/build/Debug/outDebug",
+      "cwd": "/u/a/khanda71/ece244-labs/lab6",
+      "program": "/u/a/khanda71/ece244-labs/lab6/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

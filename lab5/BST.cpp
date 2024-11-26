@@ -267,34 +267,7 @@ void searchAgeHelper(double lowAge, double highAge, Employee* n) {
   if (n->getAge() <= highAge) {
     searchAgeHelper(lowAge, highAge, n->getRight());
   }
-  // if (n == NULL) {
-  //   return;
-  // }
-  // searchAgeHelper(lowAge, highAge, n->getLeft());
-  // searchAgeHelper(lowAge, highAge, n->getRight());
 
-  // if (n->getAge() >= lowAge && n->getAge() <= highAge) {
-  //   n->print();
-  // }
-
-
-  // if (n->getAge() >= lowAge) {
-  //   n->print();
-  // }
-  // if (n->getAge() <= highAge) {
-  //   n->print();
-  // }
-
-  // searchAgeHelper(lowAge, highAge, n->getLeft(), root);
-  // searchAgeHelper(lowAge, highAge, n->getRight(), root);
-  // else if (n->getAge() >= lowAge) {
-  //   n->print();
-  //   return searchAgeHelper(lowAge, highAge, n->getLeft(), root);
-  // }
-  // else if (n->getAge() <= highAge) {
-  //   n->print();
-  //   return searchAgeHelper(lowAge, highAge, n->getRight(), root);
-  // }
 }
 
 
