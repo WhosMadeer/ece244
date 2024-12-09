@@ -145,23 +145,6 @@ void printInOrderHelper(Employee* n) {
   }
 }
 
-// void printInOrderByIDHelper(Employee* n) {
-//   if (n != NULL) {
-//     printInOrderByIDHelper(n->getLeft());
-//     std::cout << n->getID() << " " << n->getName() << " " << n->getAge() << " " << n->getSalary() << "";
-//     printInOrderByIDHelper(n->getRight());
-//   }
-// }
-
-
-// void printInOrderByAgeHelper(Employee* n) {
-//   if (n != NULL) {
-//     printInOrderByIDHelper(n->getLeft());
-//     std::cout << n->getID() << " " << n->getName() << " " << n->getAge() << " " << n->getSalary() << "";
-//     printInOrderByIDHelper(n->getRight());
-//   }
-// }
-
 void BST::printInOrder() {
   // print the Employees in the tree according its order
   // Doesn't print anything if nothing is found
@@ -173,20 +156,6 @@ void BST::printInOrder() {
   }
   else {
     printInOrderHelper(n);
-    // if (order == "name") {
-    //   printInOrderByIDHelper(n);
-    //   return;
-    // }
-
-    // if (order == "ID") {
-    //   printInOrderByIDHelper(n);
-    //   return;
-    // }
-
-    // if (order == "age") {
-    //   printInOrderByIDHelper(n);
-    //   return;
-    // }
   }
 }
 
@@ -205,15 +174,7 @@ Employee* searchIDHelper(int ID, Employee* n) {
   else {
     return searchIDHelper(ID, n->getRight());
   }
-  // else if (n->getID() == ID) {
-  //   return n;
-  // }
-  // else if (n->getID() > ID) {
-  //   return searchIDHelper(ID, n->getLeft());
-  // }
-  // else {
-  //   return searchIDHelper(ID, n->getRight());
-  // }
+
 }
 
 Employee* BST::searchID(int ID) {
@@ -221,34 +182,6 @@ Employee* BST::searchID(int ID) {
   // If ID doesn't exist in the function. Instead it should return NULL, and the printing should be taken care of in the main.cpp.
   return searchIDHelper(ID, root);
 }
-
-
-// void searchAgeHelper(double lowAge, double highAge, Employee* n, Employee* root) {
-//   if (n == NULL) {
-//     return;
-//   }
-//   // else if (n->getLeft() == NULL) {
-//   //   searchAgeHelper(lowAge, highAge, root->getRight(), root);
-//   // }
-
-//   // if (n->getAge() >= lowAge) {
-//   //   n->print();
-//   // }
-//   // if (n->getAge() <= highAge) {
-//   //   n->print();
-//   // }
-
-//   // searchAgeHelper(lowAge, highAge, n->getLeft(), root);
-//   // searchAgeHelper(lowAge, highAge, n->getRight(), root);
-//   // else if (n->getAge() >= lowAge) {
-//   //   n->print();
-//   //   return searchAgeHelper(lowAge, highAge, n->getLeft(), root);
-//   // }
-//   // else if (n->getAge() <= highAge) {
-//   //   n->print();
-//   //   return searchAgeHelper(lowAge, highAge, n->getRight(), root);
-//   // }
-// }
 
 
 void searchAgeHelper(double lowAge, double highAge, Employee* n) {
